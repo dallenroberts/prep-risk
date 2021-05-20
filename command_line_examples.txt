@@ -1,0 +1,28 @@
+python run_scenarios.py -m provided -c optim_script.py --samples first20_parameter_sets.csv -o test-output -s maxclients_sweep2 --table scenarios.csv -id 3448d9b0-e4a7-eb11-a2e3-c4346bcb7275
+
+python run_scenarios.py -m provided -c optim_script.py --samples first20_parameter_sets.csv -o output/maxclients_sweep -s maxclients_sweep_first20sets --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o output\\maxclients_sweep -s maxclients_sweep --table scenarios.csv -id 711cff35-aca7-eb11-a2e3-c4346bcb7275
+
+
+
+
+python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m roulette -n 6 -o test-output -s test_calibration --table scenarios.csv
+
+python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m roulette -n 6 -o test-output -s test_calibration --table scenarios.csv
+
+python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m roulette -n 6 -o output -s test_PrEP_scenario --table scenarios.csv
+
+python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m roulette -n 6 -o output -s test_PrEP_scenario --table scenarios.csv -id b7f5241d-979c-eb11-a2ce-c4346bcb1550
+
+
+python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m roulette -n 6 -o output -s clients_7 --table scenarios.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s test --table scenarios.csv
+
+
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s maxclients6_prep_by_riskgroup_norestart --table scenarios.csv 
+
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s maxclients6_prep_by_riskgroup --table scenarios.csv -id 5479f07c-3cad-eb11-a2e3-c4346bcb7275

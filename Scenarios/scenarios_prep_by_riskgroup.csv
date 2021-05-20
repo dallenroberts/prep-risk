@@ -1,0 +1,5 @@
+Scenario,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Campaign
+base_case,6,campaign_orig.json
+prep_high,6,campaign_prep_high.json
+prep_high_med,6,campaign_prep_high_med.json
+prep_high_med_low,6,campaign_prep_high_med_low.json

@@ -1,0 +1,5 @@
+Scenario,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Male,Campaign
+base_case_pop0005_maxclients59_test,59,59,campaign_orig.json
+base_case_pop0005_maxclients7_test,7,7,campaign_orig.json
+prep_all_cov45_pop0005_maxclients59_test,59,59,campaign_prep.json
+prep_all_cov45_pop0005_maxclients7_test,7,7,campaign_prep.json
