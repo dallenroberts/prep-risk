@@ -1,0 +1,129 @@
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
+                "Target_Property_Key": "PrEP_Eligible",
+                "Target_Property_Value": "True",
+                "class": "PropertyValueChanger"
+            },
+            "Property_Restrictions_Within_Node": {
+                "PrEP_Eligible": "False",
+            },
+            "Trigger_Condition_List": [
+                "EveryTimeStep"
+            ],
+            "class": "NodeLevelHealthTriggeredIV"
+        },
+        "class": "StandardInterventionDistributionEventCoordinator",
+    },
+     "Event_Name": "Reset PrEP eligibility.",
+     "COMMENT": "Allows people who were told to discontinue PrEP to restart.",
+     "Nodeset_Config": {
+         "class": "NodeSetAll"
+     },
+     "Start_Year": 2022,
+     "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
+                "class": "ControlledVaccine",
+                "Intervention_Name": "PrEP",
+                "COMMENT": "Put HIV-negative men on PrEP if they start a relationship with an HIV-positive individual",
+                "Disqualifying_Properties": [
+                    "PrEP_Eligible:False"
+                    "HIVStatus:KnownPositive"
+                ],
+                "New_Property_Value": "",
+                "Vaccine_Type": "AcquisitionBlocking",
+                "Vaccine_Take": 1,
+                "Waning_Config": {
+                    "class": "WaningEffectConstant",
+                    "Initial_Effect": 0.75,
+                },
+                "Distributed_Event_Trigger": "PrEP_Received",
+                "Duration_To_Wait_Before_Revaccination": 0,
+            },
+             "Target_Age_Max": 34,
+             "Target_Age_Min": 15,
+             "Target_Disease_State": "HIV_Negative",
+             "Target_Gender": "Male",
+             "Target_Demographic": "ExplicitAgeRangesAndGender",
+             "Targeting_Config": {
+                "class" : "HasRelationship",
+                "Is_Equal_To": 1,
+                "With_Partner_Who" : {
+                    "class" : "IsHivPositive",
+                    "Is_Equal_To" : 1
+                },
+                "That_Recently": "STARTED"
+            },      
+            "Demographic_Coverage": 0.75,
+            "Trigger_Condition_List": [
+                "EnteredRelationship"
+            ],
+            "class": "NodeLevelHealthTriggeredIV"
+        },
+        "class": "StandardInterventionDistributionEventCoordinator"
+    },
+    "Event_Name": "PrEP Received Due to New Relationship with HIV Positive Partner",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 2022,
+    "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
+                "class": "BroadcastEvent",
+                "New_Property_Value": "PrEP_Eligible:False",
+                "Broadcast_Event": "PrEP_Aborted_NoPosPart"
+            },
+            "COMMENT": "Discontinue PrEP if no more HIV-positive partners",
+            "Trigger_Condition_List": [
+                "ExitedRelationship"
+            ],
+            "Targeting_Config": {
+                "class": "HasIntervention",
+                "Is_Equal_To": 1,
+                "Intervention_Name": "PrEP"
+            },
+             "Targeting_Config": {
+                "class" : "TargetingLogic",
+                "Logic" : [
+                    [
+                        {
+                            "class" : "HasRelationship",
+                            "Is_Equal_To": 0,
+                            "With_Partner_Who" : {
+                                "class" : "IsHivPositive",
+                                "Is_Equal_To" : 1
+                            }
+                        },
+                        {
+                            "class" : "HasRelationship",
+                            "Is_Equal_To": 1,
+                            "That_Recently": "ENDED",
+                            "With_Partner_Who" : {
+                                "class" : "IsHivPositive",
+                                "Is_Equal_To" : 1
+                            }
+                        },
+
+                    ]
+                ]
+            },
+            "class": "NodeLevelHealthTriggeredIV"
+        },
+        "class": "StandardInterventionDistributionEventCoordinator"
+    },
+    "Event_Name": "PrEP - Take people off PrEP if no more positive partners",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 2022,
+    "class": "CampaignEventByYear"
+},

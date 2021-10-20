@@ -1,0 +1,2 @@
+Scenario,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Report_HIV_Period,Campaign
+test_scale_factor,6,365,campaign_orig.json

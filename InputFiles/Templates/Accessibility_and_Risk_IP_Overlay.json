@@ -11,6 +11,19 @@
       {
          "IndividualProperties": [
             {
+               "COMMENT": "Indicator for whether the individual is supposed to discontinue PrEP",
+               "Initial_Distribution": [
+                  0,
+                  1
+               ],
+               "Property": "PrEP_Eligible",
+               "Transitions": [],
+               "Values": [
+                  "False",
+                  "True"
+               ]
+            },
+            {
                "COMMENT": "Use the KnownPositive to abort the use of PrEP",
                "Initial_Distribution": [
                   1,
