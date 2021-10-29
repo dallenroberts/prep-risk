@@ -13,14 +13,15 @@ library(viridisLite)
 library(foreach)
 library(doParallel)
 library(purrr)
+library(lemon)
 
 theme_set(theme_classic())
 
 options(dplyr.summarise.inform=F)
 numCores <- detectCores()
 
-# file_list <- list.files("test-output", pattern = "report|base_case")
-file_list <- list.files("test-output", pattern = "report")
+file_list <- list.files("test-output", pattern = "report|base_case")
+# file_list <- list.files("test-output", pattern = "base_case")
 
 output <- mclapply(file_list, function(ff) {
   
@@ -38,6 +39,7 @@ output <- mclapply(file_list, function(ff) {
   ## Prevalence, ages 15-49, by gender
   prev_adults_gender <- outputs$prev_adults_sex %>%
     group_by(Gender, Year) %>%
+    filter(!is.na(prev)) %>%
     summarise(prev_mean = mean(prev),
               prev_median = median(prev),
               prev_lower = quantile(prev, probs = 0.025),
@@ -48,6 +50,7 @@ output <- mclapply(file_list, function(ff) {
   ## Incidence, adults 15-49, by gender
   inc_adults_gender <- outputs$inc_adults_sex %>%
     group_by(Gender, Year) %>%
+    filter(!is.na(inc)) %>%
     summarise(inc_mean = mean(inc),
               inc_median = median(inc),
               inc_lower = quantile(inc, probs = 0.025),
@@ -57,6 +60,7 @@ output <- mclapply(file_list, function(ff) {
   
   ## PrEP coverage, adults by gender and risk
   prep_adults_gender_risk <- outputs$prep_adults_sex_risk %>%
+    filter(!is.na(prep_cov)) %>%
     group_by(Gender, risk_group, Year) %>%
     summarise(prep_mean = mean(prep_cov),
               prep_median = median(prep_cov),
@@ -67,6 +71,7 @@ output <- mclapply(file_list, function(ff) {
   
   ## PrEP person-time by age, sex, and risk group
   prep_persontime_age_sex_risk <- outputs$prep_persontime_age_sex_risk_year %>%
+    filter(!is.na(prep_py)) %>%
     group_by(age_group, Gender, risk_group, run_num) %>%
     summarise(prep_py = sum(prep_py)) %>%
     group_by(age_group, Gender, risk_group) %>%
@@ -79,6 +84,7 @@ output <- mclapply(file_list, function(ff) {
   
   ## Total person-time on PrEP, by risk group
     prep_persontime_risk <- outputs$prep_persontime_age_sex_risk_year %>%
+      filter(!is.na(prep_py)) %>%
       group_by(risk_group, run_num) %>%
       summarise(prep_py = sum(prep_py)) %>%
       group_by(risk_group) %>%
@@ -91,6 +97,7 @@ output <- mclapply(file_list, function(ff) {
     
     ## Total person-time on PrEP
     prep_persontime_total <- outputs$prep_persontime_age_sex_risk_year %>%
+      filter(!is.na(prep_py)) %>%
       group_by(run_num) %>%
       summarise(prep_py = sum(prep_py)) %>%
       ungroup() %>%
@@ -103,6 +110,7 @@ output <- mclapply(file_list, function(ff) {
     
     ## Number of new infections, by age, sex, and risk group
     new_infections_age_sex_risk <- outputs$new_infections_age_sex_risk_year %>%
+      filter(!is.na(new_infections)) %>%
       group_by(age_group, Gender, risk_group, run_num) %>%
       summarise(new_infections = sum(new_infections)) %>%
       group_by(age_group, Gender, risk_group) %>%
@@ -115,6 +123,7 @@ output <- mclapply(file_list, function(ff) {
     
     ## Total new infections, by risk group
     new_infections_risk <- outputs$new_infections_age_sex_risk_year %>%
+      filter(!is.na(new_infections)) %>%
       group_by(risk_group, run_num) %>%
       summarise(new_infections = sum(new_infections)) %>%
       group_by(risk_group) %>%
@@ -127,6 +136,7 @@ output <- mclapply(file_list, function(ff) {
     
     ## Total new infections
     new_infections_total <- outputs$new_infections_age_sex_risk_year %>%
+      filter(!is.na(new_infections)) %>%
       group_by(run_num) %>%
       summarise(new_infections = sum(new_infections)) %>%
       ungroup() %>%
@@ -187,7 +197,7 @@ print(prev_adults_gender %>%
         geom_ribbon(aes(ymin = prev_lower, ymax = prev_upper, fill = factor(reports_per_year)), alpha = 0.1, show.legend = FALSE) +
         scale_color_viridis_d(guide = guide_legend(title = "Reports per year")) +
         labs(x = "Year", y = "Prevalence") +
-        facet_wrap(~Gender + scenario) +
+        facet_wrap(~Gender + scenario, ncol = 4) +
         ggtitle("Prevalence among adults age 15-49")
 )
 
@@ -198,7 +208,7 @@ print(inc_adults_gender %>%
         geom_ribbon(aes(ymin = inc_lower, ymax = inc_upper, fill = factor(reports_per_year)), alpha = 0.1, show.legend = FALSE) +
         scale_color_viridis_d(guide = guide_legend(title = "Reports per year")) +
         labs(x = "Year", y = "Incidence (per 100 PY)") +
-        facet_wrap(~Gender + scenario) +
+        facet_rep_wrap(~Gender + scenario, ncol = 4, repeat.tick.labels = TRUE) +
         ggtitle("Incidence among adults age 15-49")
 )
 
@@ -210,7 +220,7 @@ print(prep_adults_gender_risk %>%
         geom_ribbon(aes(ymin = prep_lower, ymax = prep_upper, fill = factor(reports_per_year)), alpha = 0.1, show.legend = FALSE) +
         scale_color_viridis_d(guide = guide_legend(title = "Reports per year")) +
         labs(x = "Year", y = "Incidence (per 100 PY)") +
-        facet_wrap(~Gender + scenario) +
+        facet_wrap(~Gender + scenario, ncol = 4) +
         ggtitle("PrEP coverage among low risk adults age 15-49")
 )
 
@@ -221,7 +231,7 @@ print(prep_adults_gender_risk %>%
         geom_ribbon(aes(ymin = prep_lower, ymax = prep_upper, fill = factor(reports_per_year)), alpha = 0.1, show.legend = FALSE) +
         scale_color_viridis_d(guide = guide_legend(title = "Reports per year")) +
         labs(x = "Year", y = "Incidence (per 100 PY)") +
-        facet_wrap(~Gender + scenario) +
+        facet_wrap(~Gender + scenario, ncol = 4) +
         ggtitle("PrEP coverage among medium risk adults age 15-49")
 )
 
@@ -232,7 +242,7 @@ print(prep_adults_gender_risk %>%
         geom_ribbon(aes(ymin = prep_lower, ymax = prep_upper, fill = factor(reports_per_year)), alpha = 0.1, show.legend = FALSE) +
         scale_color_viridis_d(guide = guide_legend(title = "Reports per year")) +
         labs(x = "Year", y = "Incidence (per 100 PY)") +
-        facet_wrap(~Gender + scenario) +
+        facet_wrap(~Gender + scenario, ncol = 4) +
         ggtitle("PrEP coverage among high risk adults age 15-49")
 )
 

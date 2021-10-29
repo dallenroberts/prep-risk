@@ -1,8 +1,3 @@
-"""
-RuntimeError: 400 Bad Request - Unable to save Simulation object: Couldn't find experiment to associate simulation to; invalid experiment-id: 961BDBCA-6731-E911-A2C5-C4346BCB7273 (CorrelationId = 701b144a-f2c4-4afc-9913-36ba272ef3c4)
-
-"""
-
 import itertools
 import numpy as np
 import os
@@ -29,7 +24,7 @@ SetupParser.default_block = 'HPC'
 RESAMPLING_METHODS_STR = ', '.join(['roulette', 'provided'])
 DEFAULT_N_SAMPLES = 300
 DEFAULT_BLOCK = 'HPC'
-DEFAULT_OUTPUT_DIR = 'Calibrated_Eswatini_Scenarios'
+DEFAULT_OUTPUT_DIR = 'Calibrated_RSA_Scenarios'
 DEFAULT_DOWNLOAD_FILES = os.path.join('output', 'ReportHIVByAgeAndGender.csv')
 
 SCENARIO_TABLE_MODE = 'scenario_table'
@@ -290,7 +285,8 @@ def main(args):
                                                         scenario_param_dicts=scenario_param_dicts,
                                                         suite_name=args.suite_name,
                                                         loaded_module=args.loaded_module)
-    analyze_experiments(experiment_managers, output_path=args.output_path, suite_id=args.suite_id, download_filenames=args.download_filenames)
+    if not args.no_download:
+        analyze_experiments(experiment_managers, output_path=args.output_path, suite_id=args.suite_id, download_filenames=args.download_filenames)
     print('Done!')
 
 
@@ -314,7 +310,9 @@ def parse_args():
                         help='Directory to hold scenario output files (Default: %s).'
                              % DEFAULT_OUTPUT_DIR)
     parser.add_argument('-f', '--files', dest='download_filenames', type=str, default=DEFAULT_DOWNLOAD_FILES,
-                        help='Filenames to retrieve from scenario simulations. Paths relative to simulation directories. Comma-separated list if more than one (Default: %s)' % DEFAULT_DOWNLOAD_FILES)
+                        help='Filenames to retrieve from scenario simulations (if downloading). Paths relative to simulation directories. Comma-separated list if more than one (Default: %s)' % DEFAULT_DOWNLOAD_FILES)
+    parser.add_argument('--no-download', dest='no_download', action='store_true',
+                        help='Do not download files after running scenarios (Default: download files).')
     parser.add_argument('-s', '--suite-name', dest='suite_name', type=str, required=True,
                         help='Name of suite for scenario experiment to be run (Required).')
     parser.add_argument('--table', dest='scenario_table', type=str, default=None,

@@ -7,19 +7,20 @@
 ## Running this function will also delete older results that are located in the directory
 ################################################################################
 
-## Libraries
-library(ggplot2)
-library(tidyverse)
-library(lemon)
-library(parallel)
-library(foreach)
-library(doParallel)
-
-## Set up parallels
-numCores <- detectCores()
-registerDoParallel(numCores)
-
 make_results_summary <- function(name, report_interval = 0.5, make_plots = TRUE) {
+  
+  ## Libraries
+  library(ggplot2)
+  library(tidyverse)
+  library(lemon)
+  library(parallel)
+  library(foreach)
+  library(doParallel)
+  
+  ## Set up parallels
+  numCores <- detectCores()
+  registerDoParallel(numCores)
+  
   
   ## Plot settings
   theme_set(theme_classic())
@@ -40,6 +41,14 @@ make_results_summary <- function(name, report_interval = 0.5, make_plots = TRUE)
   
   outputs <- foreach(i=1:length(file_list), .combine = 'comb', .multicombine = TRUE) %dopar% {
     
+    ## Libraries
+    library(ggplot2)
+    library(tidyverse)
+    library(lemon)
+    library(parallel)
+    library(foreach)
+    library(doParallel)
+    
     print(i)
     ff <- file_list[i]
     run_num <- as.integer(gsub("[^0-9]", "", unlist(strsplit(ff, "_"))[2]))
@@ -50,17 +59,6 @@ make_results_summary <- function(name, report_interval = 0.5, make_plots = TRUE)
     df$age_group <- cut(df$Age, breaks = c(-Inf, 14, 24, 34, 44, 54, 64, Inf), labels = c("< 15", "15-24", "25-34", "35-44", "45-54", "55-64", "65+"))
     df$Gender <- factor(df$Gender, levels = c(0,1), labels = c("Men", "Women"))
     df$risk_group <- factor(df$IP_Key.Risk, levels = c("LOW", "MEDIUM", "HIGH"), labels = c("Low", "Medium", "High"))
-    
-    ## Year
-    df$year_floor = floor(df$Year)
-    
-    # test <- df %>%
-    #   filter(Gender == "Women", risk_group == "High", Age == 15, On_Art_Dim == 0) %>%
-    #   filter(Year >= 2020) %>%
-    #   arrange(Year, HasHIV)
-    
-    ## Person-time at risk
-    df$person_years_at_risk = ifelse(df$HasHIV == 0, df$Population*report_interval, df$Newly.Infected*report_interval/2)
     
     ## Total population over time
     pop <- (df %>%
@@ -105,6 +103,16 @@ make_results_summary <- function(name, report_interval = 0.5, make_plots = TRUE)
                                group_by(Gender, risk_group, Year, run_num) %>%
                                summarise(prev = 100*sum(Infected)/sum(Population))
     )
+    
+    ## Start and end of time interval for incidence calculation
+    df$year_start <- df$Year - report_interval
+    df$year_end <- df$Year ## not needed, but just to make it explicit
+    
+    ## One-year intervals corresponding to calendar year during which new infections/person-time were accrued
+    df$year_floor <- floor(df$year_start)
+    
+    ## Person-time at risk
+    df$person_years_at_risk = ifelse(df$HasHIV == 0, df$Population*report_interval, df$Newly.Infected*report_interval/2)
     
     ## Incidence - age/sex
     inc_age_sex <- (df %>% 
@@ -178,15 +186,17 @@ make_results_summary <- function(name, report_interval = 0.5, make_plots = TRUE)
     ## Person-time on PrEP by age, sex, risk, and year
     ## Note that this is approximate. It will be most accurate when the report_interval is set to the model time step (one month). I suspect it will overestimate PrEP person-time when the report_interval is substantially longer than the model time step. This error will increase when PrEP duration is shorter.
     prep_persontime_age_sex_risk_year <- (df %>%
-                                            group_by(age_group, Gender, risk_group, Year, run_num)) %>%
-      summarise(prep_py = sum(HasIntervention.PrEP.)*report_interval +
+                                            group_by(age_group, Gender, risk_group, year_floor, run_num)) %>%
+      summarise(prep_py = sum(HasIntervention.PrEP.*report_interval +
                           PrEP_Expired*report_interval/2 +
-                          PrEP_Aborted*report_interval/2)
+                          PrEP_Aborted*report_interval/2)) %>%
+      mutate(Year = year_floor)
     
     ## Total number of new infections, by age, sex, and risk, and year
     new_infections_age_sex_risk_year <- (df %>%
-                                           group_by(age_group, Gender, risk_group, Year, run_num)) %>%
-      summarise(new_infections = sum(Newly.Infected))
+                                           group_by(age_group, Gender, risk_group, year_floor, run_num)) %>%
+      summarise(new_infections = sum(Newly.Infected)) %>%
+      mutate(Year = year_floor)
     
     return(list("pop" = pop, "pop_age_sex_risk" = pop_age_sex_risk, "pop_adults_sex_risk" = pop_adults_sex_risk,"prev_adults_sex" = prev_adults_sex, "prev_age_sex" = prev_age_sex, "prev_age_sex_risk" = prev_age_sex_risk, "prev_adults_sex_risk" = prev_adults_sex_risk, "inc_age_sex" = inc_age_sex, "inc_age_sex_risk" = inc_age_sex_risk, "inc_adults_sex_risk" = inc_adults_sex_risk, "inc_adults_sex" = inc_adults_sex, "art_sex" = art_sex, "art_adults_sex_risk" = art_adults_sex_risk, "prep_age_sex" = prep_age_sex, "prep_age_sex_risk" = prep_age_sex_risk, "prep_adults_sex_risk" = prep_adults_sex_risk, "prep_persontime_age_sex_risk_year" = prep_persontime_age_sex_risk_year, "new_infections_age_sex_risk_year" = new_infections_age_sex_risk_year))
     

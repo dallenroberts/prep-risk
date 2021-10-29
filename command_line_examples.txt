@@ -21,8 +21,42 @@ python run_scenarios.py -d Eswatini--0.05--rep1--test2 -c optim_script.py -m rou
 python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s test --table scenarios.csv
 
 
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output\test-subdir -s test_dir --table scenarios.csv 
 
-python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s maxclients6_prep_by_riskgroup_norestart --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s maxclients6_prep_by_riskgroup --table scenarios.csv -id ab52e8a0-19b4-eb11-a2e3-c4346bcb7275
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output/scale_factor005 -s scale_factor005 --table scenarios.csv -id 0c2e93c0-06bf-eb11-a9ec-b88303911bc1
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -s prep_coverage_sweep --no-download --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples test_parameter_sets.csv -s test_relationships --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -s relationship_prevalence_prep --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -s relationship_prevalence_prep -o output --table scenarios.csv -id 70671593-28fd-eb11-a9ed-b88303911bc1
 
 
-python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -o test-output -s maxclients6_prep_by_riskgroup --table scenarios.csv -id 5479f07c-3cad-eb11-a2e3-c4346bcb7275
+python run_scenarios.py -m provided -c optim_script.py --samples test_parameter_sets.csv -s relationships_test -o output/relationships-test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples test_parameter_sets.csv -s relationships_test -o output/tmp --table scenarios.csv -id 5799e7f3-5325-ec11-9ecd-9440c9bee941
+
+python run_scenarios.py -m provided -c optim_script.py --samples test_parameter_sets.csv -s relationships_test2 -o output/relationships-test2 --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s relationships_5 -o output/relationships_5 --table scenarios.csv --files output/RelationshipEnd.csv,output/RelationshipStart.csv,output/TransmissionReport.csv,output/ReportEventRecorder.csv -id 35f06c0c-d62a-ec11-9ecd-9440c9bee941
+
+python run_scenarios.py -m provided -c optim_script.py --samples first25_parameter_sets.csv -s relationships_25 -o output/relationships_25 --table scenarios.csv --files output/RelationshipEnd.csv,output/RelationshipStart.csv,output/TransmissionReport.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep-rel-test -o output/prep-rel-test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first25_parameter_sets.csv -s relationships_25-fixed-test -o output/relationships_25-fixed-test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep-risk-group-kp-test -o output/prep-risk-group-kp-test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--arbitraryrunnumber99.csv -s partner-prevalence -o output/partner-prevalence --table scenarios.csv 
+
+python run_scenarios.py -m provided -c optim_script.py --samples first25_parameter_sets.csv -s relationships_25_full_scale -o output/relationships_25__full_scale --table scenarios.csv --files output/RelationshipEnd.csv,output/RelationshipStart.csv,output/TransmissionReport.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_risk_group_sweep_first5 -o output/prep_risk_group_sweep_first5 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_partnership_sweep_first5 -o output/prep_partnership_sweep_first5 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv

@@ -3,14 +3,18 @@
 *._*
 __pycache__/
 archive/
-Data/
 Eswatini--0.05--rep1--test2/
 figures/
 output/
 test-output/
 resampled_parameter_sets.csv
-first20_parameter_sets.csv
+first*_parameter_sets.csv
+test_parameter_sets.csv
 post_channel_config.json
+*.stackdump
+Calibrated_RSA_Scenarios/
+InputFiles/Templates/archive
+InputFiles/tests
 
 # Log files
 *.log

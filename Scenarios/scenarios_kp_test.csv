@@ -1,0 +1,4 @@
+Scenario,Campaign,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Report_HIV_Period,Values__KP_Time_Value_Map_Low_Risk,Values__KP_Time_Value_Map_Medium_Risk,Values__KP_Time_Value_Map_High_Risk
+0-0-20,campaign_prep_by_risk_group.json,6,365,"[0,0]","[0,0]","[0.2,0.2]"
+0-30-30,campaign_prep_by_risk_group.json,6,365,"[0,0]","[0.3,0.3]","[0.3,0.3]"
+45-45-45,campaign_prep_by_risk_group.json,6,365,"[0.45,0.45]","[0.45,0.45]","[0.45,0.45]"
