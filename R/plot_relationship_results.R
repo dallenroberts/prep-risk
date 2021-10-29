@@ -13,8 +13,9 @@ library(viridis)
 library(scales)
 
 ## Run information
-suite_name <- "relationships_25"
-scale_factor <- 0.01
+suite_name <- "relationships_25__full_scale"
+campaign_name <- "Baseline-campaign_orig-relationships"
+scale_factor <- 0.05
 
 ## Cohort settings
 min_cohort_year <- 2022

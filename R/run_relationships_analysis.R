@@ -15,9 +15,9 @@ registerDoParallel(numCores)
 print(numCores)
 
 ## Run information
-suite_name <- "relationships_25"
-campaign_name <- "Baseline-campaign_orig-base_case"
-scale_factor <- 0.01
+suite_name <- "relationships_25__full_scale"
+campaign_name <- "Baseline-campaign_orig-relationships"
+scale_factor <- 0.05
 base_year <- 1960.5
 
 ## Cohort settings

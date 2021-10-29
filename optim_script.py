@@ -46,7 +46,7 @@ SetupParser.default_block = "HPC"
 CALIBRATION_SCENARIO = 'Baseline'
 
 # commonly modified calibration variables
-BASE_POPULATION_SCALE_FACTOR = 0.005  # For quick test simulations, this is set to a very low value
+BASE_POPULATION_SCALE_FACTOR = 0.05  # For quick test simulations, this is set to a very low value
 N_ITERATIONS = 2
 N_SAMPLES_PER_ITERATION = 12  # the number of distinct parameter sets to run per iteration
 N_REPLICATES = 2  # replicates > 1 helps OptimTool to be more stable at them cost of more simulations. 3 is recommended.
@@ -105,7 +105,7 @@ static_files_dir = os.path.join(dir_path, 'InputFiles', 'Static')
 
 # Defining the base calibration scenario
 config_templates = []
-config_filename = os.path.join(template_files_dir, 'config_rel_prep.json')
+config_filename = os.path.join(template_files_dir, 'config_prep_sweep.json')
 cfg = ConfigTemplate.from_file(config_filename)
 cfg.set_params(static_params)
 cfg.set_param('Memory_Usage_Halting_Threshold_Working_Set_MB', MAX_MEMORY_MB, allow_new_parameters=True)

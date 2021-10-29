@@ -15,9 +15,13 @@
                     "Vaccine_Type": "AcquisitionBlocking",
                     "Vaccine_Take": 1,
                     "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
+                        "class": "WaningEffectMapLinear",
                         "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
+                        "Expire_At_Durability_Map_End": 1,
+                        "Durability_Map": {
+                            "Times": [0, 180],
+                            "Values": [0.75, 0.75]
+                        }
                     },
                     "Distributed_Event_Trigger": "PrEP_Received",
                     "Expired_Event_Trigger": "PrEP_Expired",
@@ -29,26 +33,27 @@
                         "Risk": "HIGH"
                     }
                 ],
-                "Target_Age_Max": 54,
+                "Target_Age_Max": 34,
                 "Target_Age_Min": 15,
                 "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Male",
+                "Target_Gender": "All",
                 "Target_Demographic": "ExplicitAgeRangesAndGender",
                 "Time_Value_Map": {
                     "COMMENT": "It does linear interpolation between years so you do this to get square waves",
                     "Times": [
                         2022,
-                        2060
+                        2032
                     ],
                     "Values": [
-                        0.8,
-                        0.8
-                    ]
+                        0.1,
+                        0.1
+                    ],
+                    "Values__KP_Time_Value_Map_High_Risk": "<-- MARKER"
                 },
                 "Update_Period": 30.4167,
                 "class": "ReferenceTrackingEventCoordinatorHIV"
             },
-            "Event_Name": "PrEP - Put HIV Negative, Men 15-54, High risk, on PrEP",
+            "Event_Name": "PrEP - Put HIV Negative, Ages 15-34, Both Genders, High risk, on PrEP",
             "Nodeset_Config": {
                 "class": "NodeSetAll"
             },
@@ -68,9 +73,13 @@
                     "Vaccine_Type": "AcquisitionBlocking",
                     "Vaccine_Take": 1,
                     "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
+                        "class": "WaningEffectMapLinear",
                         "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
+                        "Expire_At_Durability_Map_End": 1,
+                        "Durability_Map": {
+                            "Times": [0, 180],
+                            "Values": [0.75, 0.75]
+                        }
                     },
                     "Distributed_Event_Trigger": "PrEP_Received",
                     "Expired_Event_Trigger": "PrEP_Expired",
@@ -82,26 +91,27 @@
                         "Risk": "MEDIUM"
                     }
                 ],
-                "Target_Age_Max": 54,
+                "Target_Age_Max": 34,
                 "Target_Age_Min": 15,
                 "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Male",
+                "Target_Gender": "All",
                 "Target_Demographic": "ExplicitAgeRangesAndGender",
                 "Time_Value_Map": {
                     "COMMENT": "It does linear interpolation between years so you do this to get square waves",
                     "Times": [
                         2022,
-                        2060
+                        2032
                     ],
                     "Values": [
-                        0,
-                        0
-                    ]
+                        0.1,
+                        0.1
+                    ],
+                    "Values__KP_Time_Value_Map_Medium_Risk": "<-- MARKER"
                 },
                 "Update_Period": 30.4167,
                 "class": "ReferenceTrackingEventCoordinatorHIV"
             },
-            "Event_Name": "PrEP - Put HIV Negative, Men 15-54, Medium risk on PrEP",
+            "Event_Name": "PrEP - Put HIV Negative, Ages 15-34, Both Genders, Medium risk, on PrEP",
             "Nodeset_Config": {
                 "class": "NodeSetAll"
             },
@@ -121,9 +131,13 @@
                     "Vaccine_Type": "AcquisitionBlocking",
                     "Vaccine_Take": 1,
                     "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
+                        "class": "WaningEffectMapLinear",
                         "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
+                        "Expire_At_Durability_Map_End": 1,
+                        "Durability_Map": {
+                            "Times": [0, 180],
+                            "Values": [0.75, 0.75]
+                        }
                     },
                     "Distributed_Event_Trigger": "PrEP_Received",
                     "Expired_Event_Trigger": "PrEP_Expired",
@@ -135,185 +149,33 @@
                         "Risk": "LOW"
                     }
                 ],
-                "Target_Age_Max": 54,
+                "Target_Age_Max": 34,
                 "Target_Age_Min": 15,
                 "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Male",
+                "Target_Gender": "All",
                 "Target_Demographic": "ExplicitAgeRangesAndGender",
                 "Time_Value_Map": {
                     "COMMENT": "It does linear interpolation between years so you do this to get square waves",
                     "Times": [
                         2022,
-                        2060
+                        2032
                     ],
                     "Values": [
-                        0,
-                        0
-                    ]
+                        0.1,
+                        0.1
+                    ],
+                    "Values__KP_Time_Value_Map_Low_Risk": "<-- MARKER"
                 },
                 "Update_Period": 30.4167,
                 "class": "ReferenceTrackingEventCoordinatorHIV"
             },
-            "Event_Name": "PrEP - Put HIV Negative, Men 15-54, Low risk on PrEP",
+            "Event_Name": "PrEP - Put HIV Negative, Ages 15-34, Both Genders, Low risk, on PrEP",
             "Nodeset_Config": {
                 "class": "NodeSetAll"
             },
             "Start_Year": 2022,
             "class": "CampaignEventByYear"
-        },
-        {
-            "Event_Coordinator_Config": {
-                "Intervention_Config": {
-                    "class": "ControlledVaccine",
-                    "Intervention_Name": "PrEP",
-                    "Disqualifying_Properties": [
-                        "HIVStatus:KnownPositive"
-                    ],
-                    "Vaccine_Type": "AcquisitionBlocking",
-                    "Vaccine_Take": 1,
-                    "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
-                        "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
-                    },
-                    "Distributed_Event_Trigger": "PrEP_Received",
-                    "Expired_Event_Trigger": "PrEP_Expired",
-                    "Duration_To_Wait_Before_Revaccination": 0,
-                    "Cost_To_Consumer": 10
-                },
-                "Property_Restrictions_Within_Node": [
-                    {
-                        "Risk": "HIGH"
-                    }
-                ],
-                "Target_Age_Max": 54,
-                "Target_Age_Min": 15,
-                "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Female",
-                "Target_Demographic": "ExplicitAgeRangesAndGender",
-                "Time_Value_Map": {
-                    "COMMENT": "It does linear interpolation between years so you do this to get square waves",
-                    "Times": [
-                        2022,
-                        2060
-                    ],
-                    "Values": [
-                        0.8,
-                        0.8
-                    ]
-                },
-                "Update_Period": 30.4167,
-                "class": "ReferenceTrackingEventCoordinatorHIV"
-            },
-            "Event_Name": "PrEP - Put HIV Negative, Women 15-54, High risk on PrEP",
-            "Nodeset_Config": {
-                "class": "NodeSetAll"
-            },
-            "Start_Year": 2022,
-            "class": "CampaignEventByYear"
-        },
-        {
-            "Event_Coordinator_Config": {
-                "Intervention_Config": {
-                    "class": "ControlledVaccine",
-                    "Intervention_Name": "PrEP",
-                    "Disqualifying_Properties": [
-                        "HIVStatus:KnownPositive"
-                    ],
-                    "Vaccine_Type": "AcquisitionBlocking",
-                    "Vaccine_Take": 1,
-                    "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
-                        "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
-                    },
-                    "Distributed_Event_Trigger": "PrEP_Received",
-                    "Expired_Event_Trigger": "PrEP_Expired",
-                    "Duration_To_Wait_Before_Revaccination": 0,
-                    "Cost_To_Consumer": 10
-                },
-                "Property_Restrictions_Within_Node": [
-                    {
-                        "Risk": "MEDIUM"
-                    }
-                ],
-                "Target_Age_Max": 54,
-                "Target_Age_Min": 15,
-                "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Female",
-                "Target_Demographic": "ExplicitAgeRangesAndGender",
-                "Time_Value_Map": {
-                    "COMMENT": "It does linear interpolation between years so you do this to get square waves",
-                    "Times": [
-                        2022,
-                        2060
-                    ],
-                    "Values": [
-                        0,
-                        0
-                    ]
-                },
-                "Update_Period": 30.4167,
-                "class": "ReferenceTrackingEventCoordinatorHIV"
-            },
-            "Event_Name": "PrEP - Put HIV Negative, Women 15-54, Medium risk on PrEP",
-            "Nodeset_Config": {
-                "class": "NodeSetAll"
-            },
-            "Start_Year": 2022,
-            "class": "CampaignEventByYear"
-        },
-        {
-            "Event_Coordinator_Config": {
-                "Intervention_Config": {
-                    "class": "ControlledVaccine",
-                    "Intervention_Name": "PrEP",
-                    "Disqualifying_Properties": [
-                        "HIVStatus:KnownPositive"
-                    ],
-                    "Vaccine_Type": "AcquisitionBlocking",
-                    "Vaccine_Take": 1,
-                    "Waning_Config": {
-                        "class": "WaningEffectRandomBox",
-                        "Initial_Effect": 0.75,
-                        "Expected_Discard_Time": 180
-                    },
-                    "Distributed_Event_Trigger": "PrEP_Received",
-                    "Expired_Event_Trigger": "PrEP_Expired",
-                    "Duration_To_Wait_Before_Revaccination": 0,
-                    "Cost_To_Consumer": 10
-                },
-                "Property_Restrictions_Within_Node": [
-                    {
-                        "Risk": "LOW"
-                    }
-                ],
-                "Target_Age_Max": 54,
-                "Target_Age_Min": 15,
-                "Target_Disease_State": "HIV_Negative",
-                "Target_Gender": "Female",
-                "Target_Demographic": "ExplicitAgeRangesAndGender",
-                "Time_Value_Map": {
-                    "COMMENT": "It does linear interpolation between years so you do this to get square waves",
-                    "Times": [
-                        2022,
-                        2060
-                    ],
-                    "Values": [
-                        0,
-                        0
-                    ]
-                },
-                "Update_Period": 30.4167,
-                "class": "ReferenceTrackingEventCoordinatorHIV"
-            },
-            "Event_Name": "PrEP - Put HIV Negative, Women 15-54, Low risk on PrEP",
-            "Nodeset_Config": {
-                "class": "NodeSetAll"
-            },
-            "Start_Year": 2022,
-            "class": "CampaignEventByYear"
-        },
+        }, 
         {
             "Event_Coordinator_Config": {
                 "Intervention_Config": {
@@ -326,7 +188,8 @@
                     "Trigger_Condition_List": [
                         "HIV_Positive_at_ANC",
                         "ARTStaging1",
-                        "ARTStaging9"
+                        "ARTStaging9",
+                        "NewInfectionEvent"
                     ],
                     "Targeting_Config": {
                         "class": "HasIntervention",

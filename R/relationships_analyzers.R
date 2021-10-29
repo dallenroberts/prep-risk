@@ -46,7 +46,7 @@ create_cohort <- function(suite_name = "relationships_5",
     mutate(has_death = any(event %in% c("NonDiseaseDeaths", "DiseaseDeaths")),
            death_date = ifelse(has_death == TRUE, year[event %in% c("NonDiseaseDeaths", "DiseaseDeaths")], NA),
            death_age = ifelse(has_death == TRUE, age[event %in% c("NonDiseaseDeaths", "DiseaseDeaths")], NA)) %>%
-    filter(is.na(death_date) | death_date > 2015) %>%
+    filter(is.na(death_date) | death_date > min_cohort_year) %>%
     mutate(initial_hiv_status = ifelse(first(infected == 0), "Negative", "Positive"),
            year_exit_age = max_cohort_age - age + year) %>%
     filter(!any(year_exit_age <= min_cohort_year)) %>%
@@ -373,11 +373,28 @@ analyze_relationships <- function(suite_name = "relationships_5",
                       by.x = c("id", "rel_start_age_days", "rel_end_age_days"),
                       by.y = c("id", "start_age_days", "end_age_days")) 
   
-  ## A small fraction of relationships get excluded because they land on the entry/exit timestep (for either age or year). But relationship reporter thinks they are eligible. Excluding these for now. Could go back and rework this to create discrete timesteps (based on integer values), but would need to meet with Dan B to make sure I'm handling this correctly.
+  ## A small fraction of relationships get excluded because they land on the entry/exit timestep (for either age or year). But relationship reporter thinks they are eligible. Excluding these for now since they are very rare. Could go back and rework this to create discrete timesteps (based on integer values), but would need to meet with Dan B to make sure I'm handling this correctly.
   sum(is.na(rel_pt$event))
   
   rel_pt <- rel_pt %>%
-    filter(!is.na(event)) %>%
+    filter(!is.na(event)) 
+
+  ## Annoyingly, an occasional transmission is missed because the precision of the cohort_risk year variable is less than the precision in the relationships variable, and rounding makes them not overlap. This is a messy but needed fix to add those relationships back in
+  missed_transmissions <-  rel_ind %>%
+    filter(rel_id %in% unique(inc_trans$rel_id) & !(rel_id %in% unique(rel_pt$rel_id)))
+  
+  if(nrow(missed_transmissions) > 0) {
+    
+    missed_rels <- cohort_risk %>%
+      filter(id %in% missed_transmissions$id & event == "NewInfectionEvent") %>%
+      left_join(missed_transmissions %>% select(-c(gender, risk)), by = c("id"))
+    
+    rel_pt <- rbind(rel_pt, missed_rels)
+    
+    
+  }  
+  
+  rel_pt <- rel_pt %>%
     mutate(py_in_rel_start = pmax(start_age_days, rel_start_age_days)/365,
            py_in_rel_end = pmin(end_age_days, rel_end_age_days)/365,
            py_in_rel = py_in_rel_end - py_in_rel_start)
