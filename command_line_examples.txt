@@ -60,3 +60,11 @@ python run_scenarios.py -m provided -c optim_script.py --samples first25_paramet
 python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_risk_group_sweep_first5 -o output/prep_risk_group_sweep_first5 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv
 
 python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_partnership_sweep_first5 -o output/prep_partnership_sweep_first5 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples first25_parameter_sets.csv -s prep_risk_group_sweep_first25 -o output/prep_risk_group_sweep_first25 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples first25_parameter_sets.csv -s prep_partnership_sweep_first25 -o output/prep_partnership_sweep_first25 --table scenarios.csv --files output/ReportHIVByAgeAndGender.csv,output/ReportEventRecorder.csv
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--oldrunnumbers.csv -s calibration_check -o output/calibration_check --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--oldrunnumbers.csv -s calibration -o output/calibration --table scenarios.csv --no-download

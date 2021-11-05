@@ -1,0 +1,7 @@
+Scenario,Campaign,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Report_HIV_Period
+Clients-59,campaign_orig.json,59,60.8333333
+Clients-6,campaign_orig.json,6,60.8333333
+Clients-12,campaign_orig.json,12,60.8333333
+Clients-59,campaign_ART909090.json,59,60.8333333
+Clients-6,campaign_ART909090.json,6,60.8333333
+Clients-12,campaign_ART909090.json,12,60.8333333
