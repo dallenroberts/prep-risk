@@ -68,3 +68,11 @@ python run_scenarios.py -m provided -c optim_script.py --samples first25_paramet
 python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--oldrunnumbers.csv -s calibration_check -o output/calibration_check --table scenarios.csv --no-download
 
 python run_scenarios.py -m provided -c optim_script.py --samples ReEvaluatedLikelihood_full_MASTER_new_fixednames--oldrunnumbers.csv -s calibration -o output/calibration --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s relationships_5 -o output/relationships_5 --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s relationships -o output/relationships --table scenarios.csv --no-download
+
+
+
+
