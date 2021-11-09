@@ -34,6 +34,7 @@
       "Config_Name": "Baseline-campaign_Swaziland_v05Sep2018_FINAL_reftracktopup_2011_v2-rerun_verification",
       "Custom_Coordinator_Events": [],
       "Custom_Individual_Events": [
+         "Has_Partner",
          "PrEP_Received",
          "PrEP_Expired",
          "PrEP_Aborted",
@@ -249,8 +250,7 @@
       "Report_HIV_ByAgeAndGender_Collect_IP_Data": ["Risk"],
       "Report_HIV_ByAgeAndGender_Collect_Intervention_Data": [],
       "Report_HIV_ByAgeAndGender_Collect_On_Art_Data": 1,
-      "Report_HIV_ByAgeAndGender_Event_Counter_List": [
-      ],
+      "Report_HIV_ByAgeAndGender_Event_Counter_List": ["Has_Partner"],
       "Report_HIV_ByAgeAndGender_Has_Intervention_With_Name": "",
       "Report_HIV_ByAgeAndGender_Start_Year": 2021,
       "Report_HIV_ByAgeAndGender_Stop_Year": 2032,
@@ -260,8 +260,8 @@
       ".Report_HIV_Infection_Start_Year": 2015,
       ".Report_HIV_Infection_Stop_Year": 2025,
       "Report_HIV_Mortality": 0,
-      "Report_HIV_Period": 365,
-      ".Report_HIV_Period": 30.4166666666667,
+      ".Report_HIV_Period": 365,
+      "Report_HIV_Period": 60.83333333,
       "Report_Node_Event_Recorder": 0,
       "Report_Relationship_End": 1,
       "Report_Relationship_Start": 1,

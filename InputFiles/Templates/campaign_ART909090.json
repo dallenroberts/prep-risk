@@ -3,6 +3,57 @@
    "Default_Campaign_Path": "Templates\\Campaigns\\campaign_RSA_2018_05.json",
    "Events": [
       {
+      "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
+                "class": "BroadcastEvent",
+                "Broadcast_Event": "Has_Partner"
+            },
+            "COMMENT": "Count who currently is in a relationship, of any kind",
+            "Trigger_Condition_List": [
+                "EveryUpdate"
+            ],
+             "Targeting_Config": {
+                "class" : "TargetingLogic",
+                "Logic" : [
+                    [
+                      {
+                           "class" : "HasRelationship",
+                           "Is_Equal_To": 1,
+                           "With_Partner_Who" : {
+                              "class" : "TargetingLogic",
+                              "Logic":
+                              [
+                                 [
+                                    {
+                                       "class": "IsHivPositive",
+                                       "Is_Equal_To": 0
+                                    }
+                                 ],
+                                 [  {
+                                       "class": "IsHivPositive",
+                                       "Is_Equal_To": 1
+                                    }
+                                 ]
+                              ]
+                           }
+                       }                   
+                    ]
+                ]
+            },
+            "class": "NodeLevelHealthTriggeredIV"
+         },
+            
+        "class": "StandardInterventionDistributionEventCoordinator"
+      },
+    "Event_Name": "Count number of people with at least one partner",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 2015,
+    "class": "CampaignEventByYear"
+   },
+      {
          "Event_Coordinator_Config": {
             "Intervention_Config": {
                "Cost_To_Consumer": 0.0,

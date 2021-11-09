@@ -34,6 +34,7 @@
       "Config_Name": "Baseline-campaign_Swaziland_v05Sep2018_FINAL_reftracktopup_2011_v2-rerun_verification",
       "Custom_Coordinator_Events": [],
       "Custom_Individual_Events": [
+         "Has_Partner",
          "PrEP_Received",
          "PrEP_Expired",
          "PrEP_Aborted",
