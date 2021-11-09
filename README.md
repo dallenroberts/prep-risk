@@ -44,3 +44,7 @@ Commissioning scripts for running EMOD-HIV models calibrated to Eswatini that co
 	- Scenario:`scenarios_calibration.csv`
 	- Config: `config_calibration.json`
 	- `python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s calibration -o output/calibration --table scenarios.csv --no-download` 
+- **relationships**: Relationships analysis for HIV-negative 15-34 cohort
+	- Scenario: `scenarios_relationships.csv`
+	- Config: `config_relationships.json`
+	- `python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s relationships -o output/relationships --table scenarios.csv --no-download'
