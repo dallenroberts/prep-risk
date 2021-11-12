@@ -42,23 +42,23 @@ scenarios_baseline <- data.frame(
 )
 ## PrEP for all
 scenarios_all <- data.frame(
-  "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## PrEP for medium and high risk only
 scenarios_med_high <- data.frame(
   "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(0),
-  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## PrEP for high risk only
 scenarios_high <- data.frame(
   "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(0),
   "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(0),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## Combine together

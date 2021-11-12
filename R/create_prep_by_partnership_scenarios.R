@@ -42,29 +42,38 @@ scenarios_baseline <- data.frame(
 
 ## RR = 1
 scenarios_rr_1 <- data.frame(
-  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.2, 0.8, by = 0.2),
-  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.2, 0.8, by = 0.2)
+  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.1, 0.9, by = 0.1),
+  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.1, 0.9, by = 0.1)
 )
 ## RR = 2
 scenarios_rr_2 <- data.frame(
-  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.1, 0.4, by = 0.1)),
-  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.2, 0.8, by = 0.2),
-  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.2, 0.8, by = 0.2)
+  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.05, 0.45, by = 0.05)),
+  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.1, 0.9, by = 0.1),
+  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.1, 0.9, by = 0.1)
 )
 
 ## RR = 3
 scenarios_rr_3 <- data.frame(
-  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.1, 0.25, by = 0.05)),
-  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.3, 0.75, by = 0.15),
-  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.3, 0.75, by = 0.15)),
-  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.3, 0.75, by = 0.15)
+  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.05, 0.3, by = 0.05)),
+  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.15, 0.9, by = 0.15),
+  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.15, 0.9, by = 0.15)),
+  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.15, 0.9, by = 0.15)
 )
 
+## RR = 5
+scenarios_rr_5 <- data.frame(
+  "Values__KP_PrEP_Neg_Time_Value_Map" = format_coverage(seq(0.03, 0.18, by = 0.03)),
+  "Demographic_Coverage__KP_PrEP_Pos_Coverage" = seq(0.15, 0.9, by = 0.15),
+  "Values__KP_PrEP_High_Time_Value_Map" = format_coverage(seq(0.15, 0.9, by = 0.15)),
+  "Demographic_Coverage__KP_PrEP_Partner_Coverage" = seq(0.15, 0.9, by = 0.15)
+)
+
+
 ## Combine together
-scenarios <- bind_rows(scenarios_baseline, scenarios_rr_1, scenarios_rr_2, scenarios_rr_3)
+scenarios <- bind_rows(scenarios_baseline, scenarios_rr_1, scenarios_rr_2, scenarios_rr_3, scenarios_rr_5)
 
 scenarios <- scenarios %>%
   mutate(Campaign = "campaign_prep_by_partnership.json",

@@ -48,3 +48,12 @@ Commissioning scripts for running EMOD-HIV models calibrated to Eswatini that co
 	- Scenario: `scenarios_relationships.csv`
 	- Config: `config_relationships.json`
 	- `python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s relationships -o output/relationships --table scenarios.csv --no-download`
+- **prep_risk_group_sweep\***: Sweep over coverage levels of PrEP targeted to specific risk groups. Note that due to COMPS commissionning errors, this was broken up into several suites.
+	- Scenario: `scenarios_prep_by_risk_group.csv`
+	- Config: `config_prep_sweep.json`
+	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_risk_group_sweep -o output/prep_risk_group_sweep --table scenarios.csv --no-download`
+- **prep_partnership_sweep\***: Sweep over coverage levels of PrEP targeted based on relationships. Note that due to COMPS commissionning errors, this was broken up into several suites.
+	- Scenario: `scenarios_prep_by_partnership.csv`
+	- Config: `config_prep_sweep.json`
+	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_sweep -o output/prep_partnership_sweep --table scenarios.csv --no-download`
+
