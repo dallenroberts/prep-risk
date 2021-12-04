@@ -6,52 +6,117 @@
     "Event_Coordinator_Config": {
         "Intervention_Config": {
             "Actual_IndividualIntervention_Config": {
-            	"class": "MultiInterventionDistributor",
-            	"Intervention_Name": "PrEP_Pos",
+                "COMMENT": "Tracking whether HIV+ people have been diagnosed",
+                "class": "MultiInterventionDistributor",
+                "Intervention_List":[
+                    {
+                        "class": "SimpleHealthSeekingBehavior",
+                        "Intervention_Name": "HIVDiagnosed",
+                        "Event_Or_Config": "Event",
+                        "Actual_IndividualIntervention_Event": "SHSB_Distributed",
+                        "New_Property_Value": "HIVDiagnosed:Diagnosed",
+                        "Tendency": 0,
+                        "Single_Use": 0,
+                        "Dont_Allow_Duplicates": 1
+                    },
+                    {
+                        "class": "BroadcastEvent",
+                        "Broadcast_Event": "HIVDiagnosed"
+                    }
+                ]
+            },
+            "Trigger_Condition_List": [
+                "HIV_Positive_at_ANC",
+                "ARTStaging0",
+                "ARTStaging9",
+                "OnART0",
+                "OnART1"
+            ],
+            "Targeting_Config": {
+                "class" : "TargetingLogic",
+                "Logic" : [
+                    [
+                        {
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Undiagnosed"
+                        },
+                        {
+                            "class" : "IsHivPositive",
+                            "Is_Equal_To": 1
+                        }
+                    ]
+                ]
+            },
+            "class": "NodeLevelHealthTriggeredIV"
+        },
+        "class": "StandardInterventionDistributionEventCoordinator"
+    },
+    "Event_Name": "Track HIV diagnoses",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 1961,
+    "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "class": "SimpleHealthSeekingBehavior",
+            "Intervention_Name": "HIVDiagnosed",
+            "Event_Or_Config": "Event",
+            "Actual_IndividualIntervention_Event": "HIVDiagnosed_RefTrack",
+            "New_Property_Value": "HIVDiagnosed:Diagnosed",
+            "Tendency": 1,
+            "Single_Use": 0,
+            "Dont_Allow_Duplicates": 1
+        },
+        "Target_Age_Max": 100,
+        "Target_Age_Min": 15,
+        "Target_Disease_State": "HIV_Positive",
+        "Target_Gender": "All",
+        "Target_Demographic": "ExplicitAgeRangesAndGender",
+         "Property_Restrictions_Within_Node": [],
+        "Time_Value_Map": {
+            "Times": [
+                2020,
+                2032
+            ],
+            "Values": [
+                0.9,
+                0.9
+            ]
+        },
+        "Update_Period": 30.4167,
+        "class": "ReferenceTrackingEventCoordinatorHIV"
+    },
+    "Event_Name": "Set proportion of HIV+ who know status to 0.9",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 2020,
+    "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
+                "class": "ControlledVaccine",
+                "Intervention_Name": "PrEP_Pos",
+                "COMMENT": "Put HIV-negative individuals on PrEP if they start a relationship with an HIV-positive individual",
                 "Disqualifying_Properties": [
                     "PrEP_Eligible:False",
                     "HIVStatus:KnownPositive"
                 ],
-                "Intervention_List":[
-                	{
-
-		                "class": "DelayedIntervention",
-		                "Intervention_Name": "PrEP_Pos",
-		                "Disqualifying_Properties": [
-		                    "PrEP_Eligible:False",
-		                    "HIVStatus:KnownPositive"
-		                ],
-		                "Delay_Distribution": "FIXED_DURATION",
-		                "Delay_Period": 30,
-		                "Delay_Period__KP_Delay_Duration_Days": "<-- MARKER",
-		                "Actual_IndividualIntervention_Configs": [
-		                    {
-		                        "class": "ControlledVaccine",
-		                        "Intervention_Name": "PrEP_Pos",
-		                        "COMMENT": "Put HIV-negative individuals on PrEP if they start a relationship with an HIV-positive individual",
-		                        "Disqualifying_Properties": [
-		                            "PrEP_Eligible:False",
-		                            "HIVStatus:KnownPositive"
-		                        ],
-		                        "New_Property_Value": "",
-		                        "Vaccine_Type": "AcquisitionBlocking",
-		                        "Vaccine_Take": 1,
-		                        "Waning_Config": {
-		                            "class": "WaningEffectConstant",
-		                            "Initial_Effect": 0.75
-		                        },
-		                        "Distributed_Event_Trigger": "PrEP_Pos_Received",
-		                        "Expired_Event_Trigger": "PrEP_Expired",
-		                        "Duration_To_Wait_Before_Revaccination": 0
-		                    }
-		                ]
-                	},
-                	{
-                		"class": "BroadcastEvent",
-                		"Broadcast_Event": "Mid_Pos_Distributed"
-                	}
-
-                ]
+                "New_Property_Value": "",
+                "Vaccine_Type": "AcquisitionBlocking",
+                "Vaccine_Take": 1,
+                "Waning_Config": {
+                    "class": "WaningEffectConstant",
+                    "Initial_Effect": 0.75
+                },
+                "Distributed_Event_Trigger": "PrEP_Pos_Received",
+                "Expired_Event_Trigger": "PrEP_Expired",
+                "Duration_To_Wait_Before_Revaccination": 0
             },
              "Target_Age_Max": 34,
              "Target_Age_Min": 15,
@@ -73,8 +138,8 @@
                                 "class" : "HasRelationship",
                                 "Is_Equal_To": 1,
                                 "With_Partner_Who" : {
-                                "class" : "IsHivPositive",
-                                    "Is_Equal_To" : 1
+                                "class" : "HasIP",
+                                    "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                                 },
                                 "That_Recently": "STARTED"
                             },
@@ -143,8 +208,8 @@
                             "class" : "HasRelationship",
                             "Is_Equal_To": 0,
                             "With_Partner_Who" : {
-                                "class" : "IsHivPositive",
-                                "Is_Equal_To" : 1
+                                "class" : "HasIP",
+                                "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                             }
                         },
                         {
@@ -184,58 +249,31 @@
 {
     "Event_Coordinator_Config": {
         "Intervention_Config": {
-        	"class": "MultiInterventionDistributor",
+            "class": "ControlledVaccine",
             "Intervention_Name": "PrEP_Neg",
+            "COMMENT": "Added IP to demographics.",
             "Disqualifying_Properties": [
-                "PrEP_Eligible:False",
-                "HIVStatus:KnownPositive"
+                "HIVStatus:KnownPositive",
+                "PrEP_Eligible:False"
             ],
-            "Intervention_List":[
-            	{
-            		"class": "DelayedIntervention",
-		            "Intervention_Name": "PrEP_Neg",
-		            "Disqualifying_Properties": [
-		                "PrEP_Eligible:False",
-		                "HIVStatus:KnownPositive"
-		            ],
-		            "Delay_Distribution": "FIXED_DURATION",
-		            "Delay_Period": 30,
-		            "Delay_Period__KP_Delay_Duration_Days": "<-- MARKER",
-		            "Actual_IndividualIntervention_Configs": [
-		                {
-		                    "class": "ControlledVaccine",
-		                    "Intervention_Name": "PrEP_Neg",
-		                    "COMMENT": "ADD DELAY BUT MAKE SURE ITS THE SAME NAME AS THE PREP INTERVENTION. Added IP to demographics.",
-		                    "Disqualifying_Properties": [
-		                        "HIVStatus:KnownPositive",
-		                        "PrEP_Eligible:False"
-		                    ],
-		                    "New_Property_Value": "",
-		                    "Vaccine_Type": "AcquisitionBlocking",
-		                    "Vaccine_Take": 1,
-		                    "Waning_Config": {
-		                        "class": "WaningEffectConstant",
-		                        "Initial_Effect": 0.75
-		                    },
-		                    "Distributed_Event_Trigger": "PrEP_Neg_Received",
-		                    "Expired_Event_Trigger": "PrEP_Expired",
-		                    "Duration_To_Wait_Before_Revaccination": 0,
-		                    "Cost_To_Consumer": 10
-		                }
-            		] 
-            	},
-            	{
-            		"class": "BroadcastEvent",
-                	"Broadcast_Event": "Mid_Neg_Distributed"
-            	}
-            ]           
+            "New_Property_Value": "",
+            "Vaccine_Type": "AcquisitionBlocking",
+            "Vaccine_Take": 1,
+            "Waning_Config": {
+                "class": "WaningEffectConstant",
+                "Initial_Effect": 0.75
+            },
+            "Distributed_Event_Trigger": "PrEP_Neg_Received",
+            "Expired_Event_Trigger": "PrEP_Expired",
+            "Duration_To_Wait_Before_Revaccination": 0,
+            "Cost_To_Consumer": 10
         },
         "Target_Age_Max": 34,
         "Target_Age_Min": 15,
         "Target_Disease_State": "HIV_Negative",
         "Target_Gender": "All",
         "Target_Demographic": "ExplicitAgeRangesAndGender",
-        "Property_Restrictions_Within_Node": [
+         "Property_Restrictions_Within_Node": [
             {
                 "Risk": "LOW"
             },
@@ -251,16 +289,16 @@
                         "class" : "HasRelationship",
                         "Is_Equal_To": 1,
                         "With_Partner_Who" : {
-                            "class" : "IsHivPositive",
-                            "Is_Equal_To" : 0
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Undiagnosed"
                         }
                     },
                     {
                         "class" : "HasRelationship",
                         "Is_Equal_To": 0,
                         "With_Partner_Who" : {
-                            "class" : "IsHivPositive",
-                            "Is_Equal_To" : 1
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                         }
                     },
                     {
@@ -508,9 +546,10 @@
                 "Event_Or_Config": "Event",
                 "Broadcast_Event": "New_Infection_Tell_Partners"
             },
-            "COMMENT": "Tell partners about NewInfectionEvent",
+            "COMMENT": "Tell partners about New HIV Diagnosis",
             "Trigger_Condition_List": [
-                "NewInfectionEvent"
+                "HIVDiagnosed",
+                "HIVDiagnosed_RefTrack"
             ],
             "class": "NodeLevelHealthTriggeredIV"
         },
@@ -526,106 +565,77 @@
 {
     "Event_Coordinator_Config": {
         "Intervention_Config": {
-             "Actual_IndividualIntervention_Config": {
-             	"class": "MultiInterventionDistributor",
-	            "Intervention_Name": "PrEP_Partner",
-	            "Disqualifying_Properties": [
-	                "PrEP_Eligible:False",
-	                "HIVStatus:KnownPositive"
-	            ],
-	            "Intervention_List":[
-	            	{
-		            	"class": "DelayedIntervention",
-		                "Intervention_Name": "PrEP_Partner",
-		                "Disqualifying_Properties": [
-		                    "PrEP_Eligible:False",
-		                    "HIVStatus:KnownPositive"
-		                ],
-		                "Delay_Distribution": "FIXED_DURATION",
-		                "Delay_Period": 30,
-		                "Delay_Period__KP_Delay_Duration_Days": "<-- MARKER",
-		                "Actual_IndividualIntervention_Configs": [
-		                    {
-
-		                        "class": "ControlledVaccine",
-		                        "Intervention_Name": "PrEP_Partner",
-		                        "COMMENT": "Put HIV-negative individuals on PrEP if they are in a relationship with an individual who subsequently becomes HIV-positive",
-		                        "Disqualifying_Properties": [
-		                            "PrEP_Eligible:False",
-		                            "HIVStatus:KnownPositive"
-		                        ],
-		                        "New_Property_Value": "",
-		                        "Vaccine_Type": "AcquisitionBlocking",
-		                        "Vaccine_Take": 1,
-		                        "Waning_Config": {
-		                            "class": "WaningEffectConstant",
-		                            "Initial_Effect": 0.75
-		                        },
-		                        "Distributed_Event_Trigger": "PrEP_Partner_Received",
-		                        "Expired_Event_Trigger": "PrEP_Expired",
-		                        "Duration_To_Wait_Before_Revaccination": 0
-		                    }
-		                ]
-	            	},
-	            	{
-	            		"class": "BroadcastEvent",
-	                	"Broadcast_Event": "Mid_Partner_Distributed"
-	            	}
-	            ]
-            },
-            "Target_Age_Max": 34,
-            "Target_Age_Min": 15,
-            "Target_Gender": "All",
-            "Target_Demographic": "ExplicitAgeRangesAndGender",
-            "Property_Restrictions_Within_Node": [
-                {
-                    "Risk": "LOW"
+            "Actual_IndividualIntervention_Config": {
+                "class": "ControlledVaccine",
+                "Intervention_Name": "PrEP_Partner",
+                "COMMENT": "Put HIV-negative individuals on PrEP if they are in a relationship with an individual who subsequently becomes HIV-positive",
+                "Disqualifying_Properties": [
+                    "PrEP_Eligible:False",
+                    "HIVStatus:KnownPositive"
+                ],
+                "New_Property_Value": "",
+                "Vaccine_Type": "AcquisitionBlocking",
+                "Vaccine_Take": 1,
+                "Waning_Config": {
+                    "class": "WaningEffectConstant",
+                    "Initial_Effect": 0.75
                 },
-                {
-                    "Risk": "MEDIUM"
-                }
-            ],
-            "Targeting_Config": {
-               "class" : "TargetingLogic",
-                "Logic" : 
-                [
-                    [
-                        {
-                            "class" : "HasRelationship",
-                            "Is_Equal_To": 1,
-                            "With_Partner_Who" : {
-                            "class" : "IsHivPositive",
-                                "Is_Equal_To" : 1
+                "Distributed_Event_Trigger": "PrEP_Partner_Received",
+                "Expired_Event_Trigger": "PrEP_Expired",
+                "Duration_To_Wait_Before_Revaccination": 0
+            },
+             "Target_Age_Max": 34,
+             "Target_Age_Min": 15,
+             "Target_Gender": "All",
+             "Target_Demographic": "ExplicitAgeRangesAndGender",
+             "Property_Restrictions_Within_Node": [
+                 {
+                     "Risk": "LOW"
+                 },
+                 {
+                     "Risk": "MEDIUM"
+                 }
+             ],
+             "Targeting_Config": {
+                "class" : "TargetingLogic",
+                    "Logic" : [
+                        [
+                            {
+                                "class" : "HasRelationship",
+                                "Is_Equal_To": 1,
+                                "With_Partner_Who" : {
+                                    "class" : "HasIP",
+                                    "IP_Key_Value": "HIVDiagnosed:Diagnosed"
+                                }
+                            },
+                            {
+                                "class" : "HasIntervention",
+                                "Is_Equal_To": 0,
+                                "Intervention_Name": "PrEP_Pos"
+                            },
+                            {
+                                "class" : "HasIntervention",
+                                "Is_Equal_To": 0,
+                                "Intervention_Name": "PrEP_Neg"
+                            },
+                            {
+                                "class" : "HasIntervention",
+                                "Is_Equal_To": 0,
+                                "Intervention_Name": "PrEP_High"
+                            },
+                            {
+                                "class" : "HasIntervention",
+                                "Is_Equal_To": 0,
+                                "Intervention_Name": "PrEP_Partner"
+                            },
+                            {
+                                "class" : "IsHivPositive",
+                                "Is_Equal_To": 0
                             }
-                        },
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 0,
-                            "Intervention_Name": "PrEP_Pos"
-                        },
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 0,
-                            "Intervention_Name": "PrEP_Neg"
-                        },
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 0,
-                            "Intervention_Name": "PrEP_High"
-                        },
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 0,
-                            "Intervention_Name": "PrEP_Partner"
-                        },
-                        {
-                            "class" : "IsHivPositive",
-                            "Is_Equal_To": 0
-                        }
 
+                        ]
                     ]
-                ]
-            },      
+                },      
             "Demographic_Coverage": 0.75,
             "Demographic_Coverage__KP_PrEP_Partner_Coverage": "<-- MARKER",
             "Trigger_Condition_List": [
@@ -656,46 +666,8 @@
         	"Target_Gender": "All",
         	"Target_Demographic": "ExplicitAgeRangesAndGender",
             "Trigger_Condition_List": [
-                "InterventionDisqualified"
+            	"PrEP_Expired"
             ],
-             "Property_Restrictions_Within_Node": [
-                 {
-                     "PrEP_Eligible": "False"
-                 }
-             ],
-            "Targeting_Config": {
-                "class" : "TargetingLogic",
-                "Logic" : [
-                    [
-                        {
-                            "class": "HasIntervention",
-                            "Is_Equal_To": 1,
-                            "Intervention_Name": "PrEP_Pos"
-                        }
-                    ],
-                    [
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 1,
-                            "Intervention_Name": "PrEP_Neg"
-                        }
-                    ],
-                    [
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 1,
-                            "Intervention_Name": "PrEP_High"
-                        }
-                    ],
-                    [
-                        {
-                            "class" : "HasIntervention",
-                            "Is_Equal_To": 1,
-                            "Intervention_Name": "PrEP_Partner"
-                        }
-                    ]
-                ]
-            },
             "class": "NodeLevelHealthTriggeredIV"
         },
         "class": "StandardInterventionDistributionEventCoordinator"

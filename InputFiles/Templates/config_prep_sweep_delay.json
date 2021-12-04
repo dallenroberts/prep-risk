@@ -34,6 +34,9 @@
       "Config_Name": "Baseline-campaign_Swaziland_v05Sep2018_FINAL_reftracktopup_2011_v2-rerun_verification",
       "Custom_Coordinator_Events": [],
       "Custom_Individual_Events": [
+         "Mid_Neg_Distributed",
+         "Mid_Pos_Distributed",
+         "Mid_Partner_Distributed",
          "PrEP_Pos_Received",
          "Go_Off_PrEP_Pos_Or_PrEP_Partner",
          "PrEP_Neg_Received",
@@ -218,6 +221,9 @@
          "ReceivedPrEP"
       ],
       "Report_Event_Recorder_Events": [
+         "Mid_Neg_Distributed",
+         "Mid_Partner_Distributed",
+         "Mid_Pos_Distributed",
          "PrEP_Pos_Received",
          "PrEP_Neg_Received",
          "PrEP_High_Received",

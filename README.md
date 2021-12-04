@@ -29,6 +29,8 @@ Commissioning scripts for running EMOD-HIV models calibrated to Eswatini that co
 - `run_scenarios.py`: Commissions COMPS scripts (no editing needed)
 - `R/create_prep_by_partnership_scenarios.R`: Creates scenarios.csv for partnership PrEP sweep
 - `R/create_prep_by_risk_group_scenarios.R`: Creates scenarios.csv for risk group PrEP sweep
+- `R/create_prep_by_partnership_known_status_scenarios.R`: Creates scenarios.csv for partnership PrEP sweep where RR is only applied to diagnosed HIV+ partners
+- `R/create_prep_by_partnership_delayed_scenarios.R`: Creates scenarios.csv for partnership PrEP sweep where delay is imposed prior to PrEP initiation
 - 
 ## Directories (Deprecated)
 - **R**: (*most moved over to hivdtkproc*)
@@ -56,4 +58,15 @@ Commissioning scripts for running EMOD-HIV models calibrated to Eswatini that co
 	- Scenario: `scenarios_prep_by_partnership.csv`
 	- Config: `config_prep_sweep.json`
 	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_sweep -o output/prep_partnership_sweep --table scenarios.csv --no-download`
-
+- **prep_partnership_delayed_sweep\***: Sweep over coverage levels of PrEP targeted based on relationships, where delay is imposed prior to PrEP initiation. Note that due to COMPS commissionning errors, this was broken up into several suites.
+	- Scenario: `scenarios_prep_by_partnership_delayed.csv`
+	- Config: `config_prep_sweep_delay.json`
+	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_delayed_sweep  -o output/prep_partnership_delayed_sweep --table scenarios.csv --no-download`
+- **prep_ks_baseline\***: Estimate proportion of HIV+ who know status
+	- Scenario: `scenarios_prep_ks_baseline.csv`
+	- Config: `config_known_status.json`
+	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_ks_baseline -o output/prep_ks_baseline --table scenarios.csv --no-download`
+- **prep_partnership_known_status_sweep\***: Sweep over coverage levels of PrEP targeted based on relationships, RR is only applied to diagnosed HIV+ partners. Note that due to COMPS commissionning errors, this was broken up into several suites.
+	- Scenario: `scenarios_prep_by_partnership_known_status.csv`
+	- Config: `config_prep_sweep_known_status.json`
+	-`python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep -o output/prep_partnership_known_status_sweep --table scenarios.csv --no-download`

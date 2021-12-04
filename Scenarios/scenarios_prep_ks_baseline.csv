@@ -1,0 +1,2 @@
+Scenario,Campaign,Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female,Report_HIV_Period,Values__KP_PrEP_Neg_Time_Value_Map,Demographic_Coverage__KP_PrEP_Pos_Coverage,Values__KP_PrEP_High_Time_Value_Map,Demographic_Coverage__KP_PrEP_Partner_Coverage
+prep-ks-baseline,campaign_prep_by_partnership_known_status.json,6,365,"[0,0]",0,"[0,0]",0

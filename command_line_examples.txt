@@ -93,4 +93,31 @@ python run_scenarios.py -m provided -c optim_script.py --samples calibrated_para
 
 python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_sweep3 -o output/prep_partnership_sweep3 --table scenarios.csv --no-download
 
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_delay_test -o output/prep_delay_test --table scenarios.csv --no-download
 
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_delayed_sweep -o output/prep_partnership_delayed_sweep --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_delayed_sweep3 -o output/prep_partnership_delayed_sweep3 --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_ks_test -o output/prep_ks_test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_ks_baseline -o output/prep_ks_baseline --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_ks_prep_test -o output/prep_ks_prep_test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep -o output/prep_partnership_known_status_sweep --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep2 -o output/prep_partnership_known_status_sweep2 --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples first5_parameter_sets.csv -s prep_shsb_mid_test -o output/prep_shsb_mid_test --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_ks_baseline -o output/prep_ks_baseline --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep -o output/prep_partnership_known_status_sweep --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep2 -o output/prep_partnership_known_status_sweep2 --table scenarios.csv --no-download
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep3 -o output/prep_partnership_known_status_sweep3 --table scenarios.csv --no-download
+
+
+python run_scenarios.py -m provided -c optim_script.py --samples calibrated_parameter_sets.csv -s prep_partnership_known_status_sweep4 -o output/prep_partnership_known_status_sweep4 --table scenarios.csv --no-download
