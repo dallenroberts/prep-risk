@@ -105,7 +105,7 @@ static_files_dir = os.path.join(dir_path, 'InputFiles', 'Static')
 
 # Defining the base calibration scenario
 config_templates = []
-config_filename = os.path.join(template_files_dir, 'config_prep_sweep_known_status.json')
+config_filename = os.path.join(template_files_dir, 'config_prep_sweep.json')
 cfg = ConfigTemplate.from_file(config_filename)
 cfg.set_params(static_params)
 cfg.set_param('Memory_Usage_Halting_Threshold_Working_Set_MB', MAX_MEMORY_MB, allow_new_parameters=True)

@@ -65,7 +65,7 @@ scenarios_high <- data.frame(
 scenarios <- bind_rows(scenarios_baseline, scenarios_all, scenarios_med_high, scenarios_high)
 
 scenarios <- scenarios %>%
-  mutate(Campaign = "campaign_prep_by_risk_group.json",
+  mutate(Campaign = "campaign_prep_by_risk_group_bugfix.json",
   Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female = 6,
   Report_HIV_Period = 365,
   Report_HIV_ByAgeAndGender_Collect_Intervention_Data = "[\"PrEP\"]",
