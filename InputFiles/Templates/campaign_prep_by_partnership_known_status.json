@@ -6,6 +6,100 @@
     "Event_Coordinator_Config": {
         "Intervention_Config": {
             "Actual_IndividualIntervention_Config": {
+                "COMMENT": "Tracking whether HIV+ people have been diagnosed",
+                "class": "MultiInterventionDistributor",
+                "Intervention_List":[
+                    {
+                        "class": "SimpleHealthSeekingBehavior",
+                        "Intervention_Name": "HIVDiagnosed",
+                        "Event_Or_Config": "Event",
+                        "Actual_IndividualIntervention_Event": "SHSB_Distributed",
+                        "New_Property_Value": "HIVDiagnosed:Diagnosed",
+                        "Tendency": 0,
+                        "Single_Use": 0,
+                        "Dont_Allow_Duplicates": 1
+                    },
+                    {
+                        "class": "BroadcastEvent",
+                        "Broadcast_Event": "HIVDiagnosed"
+                    }
+                ]
+            },
+            "Trigger_Condition_List": [
+                "HIV_Positive_at_ANC",
+                "ARTStaging0",
+                "ARTStaging9",
+                "OnART0",
+                "OnART1"
+            ],
+            "Targeting_Config": {
+                "class" : "TargetingLogic",
+                "Logic" : [
+                    [
+                        {
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Undiagnosed"
+                        },
+                        {
+                            "class" : "IsHivPositive",
+                            "Is_Equal_To": 1
+                        }
+                    ]
+                ]
+            },
+            "class": "NodeLevelHealthTriggeredIV"
+        },
+        "class": "StandardInterventionDistributionEventCoordinator"
+    },
+    "Event_Name": "Track HIV diagnoses",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 1961,
+    "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "class": "SimpleHealthSeekingBehavior",
+            "Intervention_Name": "HIVDiagnosed",
+            "Event_Or_Config": "Event",
+            "Actual_IndividualIntervention_Event": "HIVDiagnosed_RefTrack",
+            "New_Property_Value": "HIVDiagnosed:Diagnosed",
+            "Tendency": 1,
+            "Single_Use": 0,
+            "Dont_Allow_Duplicates": 1
+        },
+        "Target_Age_Max": 100,
+        "Target_Age_Min": 15,
+        "Target_Disease_State": "HIV_Positive",
+        "Target_Gender": "All",
+        "Target_Demographic": "ExplicitAgeRangesAndGender",
+         "Property_Restrictions_Within_Node": [],
+        "Time_Value_Map": {
+            "Times": [
+                2020,
+                2032
+            ],
+            "Values": [
+                0.9,
+                0.9
+            ]
+        },
+        "Update_Period": 30.4167,
+        "class": "ReferenceTrackingEventCoordinatorHIV"
+    },
+    "Event_Name": "Set proportion of HIV+ who know status to 0.9",
+    "Nodeset_Config": {
+        "class": "NodeSetAll"
+    },
+    "Start_Year": 2020,
+    "class": "CampaignEventByYear"
+},
+{
+    "Event_Coordinator_Config": {
+        "Intervention_Config": {
+            "Actual_IndividualIntervention_Config": {
                 "class": "ControlledVaccine",
                 "Intervention_Name": "PrEP_Pos",
                 "COMMENT": "Put HIV-negative individuals on PrEP if they start a relationship with an HIV-positive individual",
@@ -44,8 +138,8 @@
                                 "class" : "HasRelationship",
                                 "Is_Equal_To": 1,
                                 "With_Partner_Who" : {
-                                "class" : "IsHivPositive",
-                                    "Is_Equal_To" : 1
+                                "class" : "HasIP",
+                                    "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                                 },
                                 "That_Recently": "STARTED"
                             },
@@ -114,8 +208,8 @@
                             "class" : "HasRelationship",
                             "Is_Equal_To": 0,
                             "With_Partner_Who" : {
-                                "class" : "IsHivPositive",
-                                "Is_Equal_To" : 1
+                                "class" : "HasIP",
+                                "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                             }
                         },
                         {
@@ -195,16 +289,16 @@
                         "class" : "HasRelationship",
                         "Is_Equal_To": 1,
                         "With_Partner_Who" : {
-                            "class" : "IsHivPositive",
-                            "Is_Equal_To" : 0
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Undiagnosed"
                         }
                     },
                     {
                         "class" : "HasRelationship",
                         "Is_Equal_To": 0,
                         "With_Partner_Who" : {
-                            "class" : "IsHivPositive",
-                            "Is_Equal_To" : 1
+                            "class" : "HasIP",
+                            "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                         }
                     },
                     {
@@ -452,9 +546,10 @@
                 "Event_Or_Config": "Event",
                 "Broadcast_Event": "New_Infection_Tell_Partners"
             },
-            "COMMENT": "Tell partners about NewInfectionEvent",
+            "COMMENT": "Tell partners about New HIV Diagnosis",
             "Trigger_Condition_List": [
-                "NewInfectionEvent"
+                "HIVDiagnosed",
+                "HIVDiagnosed_RefTrack"
             ],
             "class": "NodeLevelHealthTriggeredIV"
         },
@@ -509,8 +604,8 @@
                                 "class" : "HasRelationship",
                                 "Is_Equal_To": 1,
                                 "With_Partner_Who" : {
-                                "class" : "IsHivPositive",
-                                    "Is_Equal_To" : 1
+                                    "class" : "HasIP",
+                                    "IP_Key_Value": "HIVDiagnosed:Diagnosed"
                                 }
                             },
                             {

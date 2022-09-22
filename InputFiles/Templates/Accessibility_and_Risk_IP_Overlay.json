@@ -37,6 +37,19 @@
                ]
             },
             {
+               "COMMENT": "Track whether HIV+ individuals have diagnosed infection",
+               "Initial_Distribution": [
+                  1,
+                  0
+               ],
+               "Property": "HIVDiagnosed",
+               "Transitions": [],
+               "Values": [
+                  "Undiagnosed",
+                  "Diagnosed"
+               ]
+            },
+            {
                "Comment": "100% Healthcare Accessible",
                "Initial_Distribution": [
                   1,

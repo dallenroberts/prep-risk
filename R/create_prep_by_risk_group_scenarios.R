@@ -42,30 +42,30 @@ scenarios_baseline <- data.frame(
 )
 ## PrEP for all
 scenarios_all <- data.frame(
-  "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## PrEP for medium and high risk only
 scenarios_med_high <- data.frame(
   "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(0),
-  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2)),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1)),
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## PrEP for high risk only
 scenarios_high <- data.frame(
   "Values__KP_Time_Value_Map_Low_Risk" = format_coverage(0),
   "Values__KP_Time_Value_Map_Medium_Risk" = format_coverage(0),
-  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.2, 0.8, by = 0.2))
+  "Values__KP_Time_Value_Map_High_Risk" = format_coverage(seq(0.1, 0.9, by = 0.1))
 )
 
 ## Combine together
 scenarios <- bind_rows(scenarios_baseline, scenarios_all, scenarios_med_high, scenarios_high)
 
 scenarios <- scenarios %>%
-  mutate(Campaign = "campaign_prep_by_risk_group.json",
+  mutate(Campaign = "campaign_prep_by_risk_group_bugfix.json",
   Society__KP_Defaults.COMMERCIAL.Concurrency_Parameters.HIGH.Max_Simultaneous_Relationships_Female = 6,
   Report_HIV_Period = 365,
   Report_HIV_ByAgeAndGender_Collect_Intervention_Data = "[\"PrEP\"]",

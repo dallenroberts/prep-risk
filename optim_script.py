@@ -59,7 +59,7 @@ MAX_MEMORY_MB = 8000
 NUM_REQUESTED_CORES = math.ceil(MAX_MEMORY_MB / 8000)
 
 # The excel file with parameter, analyzer, and reference data to parse
-ingest_xlsm_filename = os.path.join('Data', 'calibration_ingest_form-Swaziland_ART_vars--UPDATED--mightnotkeep.xlsm')
+ingest_xlsm_filename = os.path.join('Data', 'calibration_ingest_form-Eswatini.xlsm')
 
 # params is a dict, site_info is a dict, reference is a PopulationObs object, analyzers is a list of dictionaries of
 # analyzer arguments
